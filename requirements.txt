@@ -1,0 +1,4 @@
+# File-Architect-Pro
+# Requirements file
+
+PyQt6>=6.5.0
