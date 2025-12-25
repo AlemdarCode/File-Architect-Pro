@@ -147,7 +147,7 @@ class FileController:
         item_path = Path(path)
         
         try:
-            # EAFP: Direkt işlemi dene, hata olursa yakala (TOCTOU riski yok)
+            # EAFP: Try operation directly, catch error if fails (no TOCTOU risk)
             if item_path.is_dir():
                 shutil.rmtree(item_path)
             else:

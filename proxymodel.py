@@ -5,48 +5,48 @@ class PreviewProxyModel(QSortFilterProxyModel):
         super().__init__(parent)
         self.active_filters = {} # {filter_id: filter_data}
         self.root_path = None
-        self.whitelist_dirs = None # Set of paths (None = Devre dışı)
-        self.setRecursiveFilteringEnabled(True) # Alt klasörleri de filtrele
+        self.whitelist_dirs = None # Set of paths (None = Disabled)
+        self.setRecursiveFilteringEnabled(True) # Also filter subdirectories
 
     def set_filters(self, filters):
         self.active_filters = filters.copy()
-        # Filtreler değişince whitelist'i sıfırla
+        # Reset whitelist when filters change
         self.whitelist_dirs = None
-        self.invalidateFilter() # Reset yerine invalidate kullan (State korunur)
+        self.invalidateFilter() # Use invalidate instead of reset (State preserved)
 
     def set_whitelist(self, dirs):
-        """Sadece bu klasörleri göster (Performans Modu)"""
+        """Show only these directories (Performance Mode)"""
         self.beginResetModel()
         self.whitelist_dirs = dirs
         self.endResetModel()
 
     def filterAcceptsRow(self, source_row, source_parent):
-        # Eğer filtre yoksa, hiçbir şey gösterme (Performans ve istek üzerine)
+        # If no filter, show nothing (Performance and per request)
         if not self.active_filters:
             return False
 
-        # Dosya indeksini al
+        # Get file index
         source_model = self.sourceModel()
         index = source_model.index(source_row, 0, source_parent)
         
-        # Klasörleri kontrol et
+        # Check directories
         if source_model.isDir(index):
             if self.whitelist_dirs is not None:
-                # Whitelist aktifse, sadece listedeki klasörleri göster
+                # If whitelist is active, show only directories in list
                 path = source_model.filePath(index)
-                # Normalizasyon (separator farklarını önlemek için)
+                # Normalization (to prevent separator differences)
                 path = path.replace('/', '\\')
                 if path not in self.whitelist_dirs:
                     return False
             return True
 
-        # Dosya bilgilerini al
+        # Get file info
         file_name = source_model.fileName(index)
         file_path = source_model.filePath(index)
         if not file_path: return False
         file_info = QFileInfo(file_path)
         
-        # Filtreleri Ayrıştır
+        # Parse Filters
         extension_filters = []
         other_filters = []
         
@@ -56,7 +56,7 @@ class PreviewProxyModel(QSortFilterProxyModel):
             else:
                 other_filters.append(f_data)
         
-        # 1. Uzantı Kontrolü (OR Mantığı)
+        # 1. Extension Check (OR Logic)
         if extension_filters:
             ext_match = False
             current_ext = file_info.suffix().lower()
@@ -72,7 +72,7 @@ class PreviewProxyModel(QSortFilterProxyModel):
             if not ext_match:
                 return False
 
-        # 2. Diğer Filtreler (AND Mantığı)
+        # 2. Other Filters (AND Logic)
         for f_data in other_filters:
             ft = f_data.get("type")
             
