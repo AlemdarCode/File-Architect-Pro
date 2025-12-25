@@ -1,120 +1,120 @@
-# İlerleme Durumu
+# Progress Status
 
-## Tamamlananlar
-- [x] Temel Dosya Yerleşimi (Kaynak, Filtreler, İşlemler, Önizleme).
-- [x] Özel Stil (Mavi vurguların kaldırılması, açık renk input teması).
-- [x] Ağaç Görünümü Özelleştirmesi (Ortalanmış çizgiler, klasör genişletme mantığı).
-- [x] Özyinelemeli klasör genişletme.
-- [x] Özel Çizgi Çizme Mantığı (ata klasör takibi).
-- [x] Gradyan Ayırıcı Çizgi uygulaması.
-- [x] Buton Grubu Mantığı (Toggle Radyo Buton, Otomatik Kapanma).
-- [x] Filtre/İşlem Paneli Düzeni (Dinamik Grid Layout, Responsive).
-- [x] Filtre Ayarları Arayüzü (Sağ panel form tasarımı).
-- [x] Aksiyon Ayarları Arayüzü (Simetrik yapı, StackedWidget).
-- [x] UI Bileşen Özelleştirmesi (Modern QSpinBox, 10px Radius, Şık Oklar).
-- [x] Dinamik Panel Boyutlandırma (Tam ekran desteği).
-- [x] Metin/Sayı Validasyonu (QIntValidator).
-- [x] FilterChip X butonu (Kırmızı yuvarlak içinde beyaz ✕).
-- [x] Buton İşlevleri (Filtre Ekle, Sıfırla, İptal, Uygula).
-- [x] Form Widget Referansları (self. ile tanımlama, form_widgets dictionary).
-- [x] Gerçek form değerlerinin okunması ve chip'e yazılması.
+## Completed
+- [x] Basic File Layout (Source, Filters, Actions, Preview).
+- [x] Custom Style (Blue highlight removal, light input theme).
+- [x] Tree View Customization (Centered lines, folder expansion logic).
+- [x] Recursive folder expansion.
+- [x] Custom Line Drawing Logic (ancestor folder tracking).
+- [x] Gradient Separator Line implementation.
+- [x] Button Group Logic (Toggle Radio Button, Auto Close).
+- [x] Filter/Action Panel Layout (Dynamic Grid Layout, Responsive).
+- [x] Filter Settings Interface (Right panel form design).
+- [x] Action Settings Interface (Symmetric structure, StackedWidget).
+- [x] UI Component Customization (Modern QSpinBox, 10px Radius, Elegant Arrows).
+- [x] Dynamic Panel Sizing (Full screen support).
+- [x] Text/Number Validation (QIntValidator).
+- [x] FilterChip X button (White ✕ in red circle).
+- [x] Button Functions (Add Filter, Reset, Cancel, Apply).
+- [x] Form Widget References (self. definition, form_widgets dictionary).
+- [x] Reading actual form values and writing to chips.
 
-### Gerçek Filtreleme Sistemi (23 Aralık 2025)
-- [x] Aynı filtre tekrar eklendiğinde uyarı gösterme.
-- [x] Filtre eklendikten sonra form input'larını otomatik temizleme.
-- [x] Maksimum 5 filtre sınırı ve uyarı.
-- [x] Preview panelinde dosya listesi görüntüleme.
-- [x] Filtrelerin anlık olarak uygulanması.
-- [x] Uzantı, Dosya Adı, Boyut, Regex, Metin, Tarih filtreleri çalışıyor.
-- [x] Filtre kaldırıldığında listeyi güncelleme.
+### Real Filtering System (December 23, 2025)
+- [x] Show warning when same filter is added again.
+- [x] Auto-clear form inputs after adding filter.
+- [x] Maximum 5 filter limit and warning.
+- [x] File list display in Preview panel.
+- [x] Instant filter application.
+- [x] Extension, File Name, Size, Regex, Text, Date filters working.
+- [x] Update list when filter is removed.
 
-### UI İyileştirmeleri (23 Aralık 2025 - Güncelleme 2)
-- [x] Preview paneli genişletildi (daha geniş).
-- [x] Aksiyon paneli de otomatik olarak genişledi.
-- [x] "Klasör Yapısı" checkbox eklendi (TreeView vs Liste görünümü).
-- [x] Uygulama başlangıcında C diski GELMİYOR - placeholder gösteriliyor.
-- [x] Source paneline yenileme butonu eklendi (arrows-rotate-solid.svg).
-- [x] Uzantı validasyonu eklendi (..txt gibi hatalar için uyarı).
-- [x] Birden fazla uzantı filtresi (örn: .txt ve .png) OR mantığıyla çalışıyor.
-- [x] Farklı filtre butonuna tıklandığında önceki form temizleniyor.
-- [x] Tarih filtreleri her açıldığında bugünün tarihine sıfırlanıyor.
-- [x] Filtre eklendikten sonra metin kutuları temizleniyor.
-- [x] Aksiyon Paneli 2 Bölmeye Ayrıldı (Sol: Ayarlar, Sağ: Aktif İşlemler).
-- [x] Aksiyon Paneli Hizalaması (Full Page Drift Sorunu Çözüldü).
-- [x] Aksiyon Paneli Responsive Koruma (Min Width Tanımları).
+### UI Improvements (December 23, 2025 - Update 2)
+- [x] Preview panel expanded (wider).
+- [x] Action panel auto-expanded accordingly.
+- [x] "Folder Structure" checkbox added (TreeView vs List view).
+- [x] C drive NOT shown at startup - placeholder shown.
+- [x] Refresh button added to Source panel (arrows-rotate-solid.svg).
+- [x] Extension validation added (warning for errors like ..txt).
+- [x] Multiple extension filters (e.g., .txt and .png) work with OR logic.
+- [x] Previous form cleared when different filter button is clicked.
+- [x] Date filters reset to today's date each time opened.
+- [x] Text boxes cleared after filter is added.
+- [x] Action Panel Split into 2 Parts (Left: Settings, Right: Active Actions).
+- [x] Action Panel Alignment (Full Page Drift Issue Resolved).
+- [x] Action Panel Responsive Protection (Min Width Definitions).
 
-### Gelişmiş Filtreleme ve TreeView Performansı (24 Aralık 2025)
-- [x] PreviewProxyModel entegrasyonu (Akıllı filtre katmanı).
-- [x] TreeView modunda Boyut, Tarih, Regex vb. tüm gelişmiş filtrelerin çalışması.
-- [x] Uzantı filtreleri için OR (VEYA) mantığı desteği.
-- [x] Chain-Expansion sistemi (`directoryLoaded` + `fetchMore`) ile derin klasörlerin otomatik açılması.
-- [x] TreeView 1px siyah, keskin ve merkezlenmiş branch çizgileri.
-- [x] Arka plandaki sistem çizgilerinin (gri kutular) tamamen yok edilmesi.
-- [x] Animasyonların kapatılması ile büyük dizinlerde performans kararlılığı.
-- [x] `mapFromSource` ile kök dizin (setRootIndex) hatalarının giderilmesi.
-- [x] `beginResetModel`/`endResetModel` ile anlık filtre tepkiselliği.
-- [x] Filtre yoksa önizleme listesinin boş gelmesi (Kullanıcı isteği).
-- [x] Ağaç yapısı aktifken de dosya sayısının (X / Y) anlık güncellenmesi.
-- [x] `DontWatchForChanges` ile C: diski donmalarının tamamen giderilmesi.
-- [x] Arka plan tarayıcısı (FastScannerThread) ve Whitelist mimarisi.
+### Advanced Filtering and TreeView Performance (December 24, 2025)
+- [x] PreviewProxyModel integration (Smart filter layer).
+- [x] All advanced filters working in TreeView mode (Size, Date, Regex, etc.).
+- [x] OR logic support for extension filters.
+- [x] Chain-Expansion system (`directoryLoaded` + `fetchMore`) for auto-opening deep folders.
+- [x] TreeView 1px black, sharp and centered branch lines.
+- [x] Background system lines (gray boxes) completely removed.
+- [x] Animation disabled for performance stability in large directories.
+- [x] `mapFromSource` root directory (setRootIndex) errors fixed.
+- [x] `beginResetModel`/`endResetModel` for instant filter responsiveness.
+- [x] Preview list empty when no filters (user request).
+- [x] File count (X / Y) updates instantly even when tree structure is active.
+- [x] `DontWatchForChanges` completely fixed C: drive freezes.
+- [x] Background scanner (FastScannerThread) and Whitelist architecture.
 
-### Aksiyon Sistemi ve İşleme (24 Aralık 2025 - Güncelleme 3)
-- [x] Tüm aksiyon formlarının (Rename, Copy, Label vb.) ActiveActionsPanel'e entegrasyonu.
-- [x] Aksiyon ekleme sınırı (Maks 3) ve uyarı mekanizması.
-- [x] Görev Listesi UI (Edit/Delete butonları ve Tooltip'ler).
-- [x] Akıllı Düzenleme Modu (Görev düzenlenirken listeden alınıp forma yüklenmesi).
-- [x] Arka plan işleyicisi (ActionRunnerThread) ile gerçek dosya operasyonları.
-- [x] İlerleme çubuğu (Progress Bar) ve durum metni entegrasyonu.
-- [x] İşlem sonrası "Başlat" butonunun durum yönetimi (Disabled/Reset).
-- [x] Dosya kopyalama, yeniden adlandırma, silme ve CSV raporlama işlevleri aktif.
+### Action System and Processing (December 24, 2025 - Update 3)
+- [x] Integration of all action forms (Rename, Copy, Label, etc.) to ActiveActionsPanel.
+- [x] Action add limit (Max 3) and warning mechanism.
+- [x] Task List UI (Edit/Delete buttons and Tooltips).
+- [x] Smart Edit Mode (Task removed from list and loaded to form during editing).
+- [x] Background processor (ActionRunnerThread) for real file operations.
+- [x] Progress bar and status text integration.
+- [x] Post-operation "Start" button state management (Disabled/Reset).
+- [x] File copy, rename, delete and CSV reporting functions active.
 
-### Güvenli Silme ve Raporlama (24 Aralık 2025 - Güncelleme 4)
-- [x] Güvenli silme (Secure Delete) metotlarının (NIST 800-88 Clear/Overwrite) doğrulanması.
-- [x] Raporlama çıktılarının kullanıcı tarafından seçilen konuma kaydedilmesi.
+### Secure Delete and Reporting (December 24, 2025 - Update 4)
+- [x] Secure delete (Secure Delete) methods (NIST 800-88 Clear/Overwrite) verified.
+- [x] Report outputs saved to user-selected location.
 
-### Uygulama Ayarları ve Çoklu Dil Desteği (25 Aralık 2025)
-- [x] Ayarlar Sekmesi (Settings Tab) - Tema ve Dil seçimi.
-- [x] Tema Sistemi (Light/Dark/System) - Dinamik değişim.
-- [x] Çoklu Dil Desteği (Türkçe/İngilizce) - Tam arayüz çevirisi.
-- [x] `update_texts()` metodları ile dinamik dil değişimi.
-- [x] Tüm panel başlıklarının çevirisi (Filtreler, Aksiyonlar, Önizleme vb.).
-- [x] Tüm buton metinlerinin çevirisi (Ekle, Sıfırla, İptal, Uygula vb.).
-- [x] ComboBox öğelerinin çevirisi (Açık/Light, Koyu/Dark vb.).
-- [x] Placeholder metinlerinin çevirisi ("Klasör seçin", "Aksiyon yok" vb.).
-- [x] Aktif Filtreler ve Aktif Aksiyonlar başlıklarının çevirisi.
+### Application Settings and Multi-Language Support (December 25, 2025)
+- [x] Settings Tab - Theme and Language selection.
+- [x] Theme System (Light/Dark/System) - Dynamic change.
+- [x] Multi-Language Support (Turkish/English) - Full interface translation.
+- [x] `update_texts()` methods for dynamic language change.
+- [x] Translation of all panel titles (Filters, Actions, Preview, etc.).
+- [x] Translation of all button texts (Add, Reset, Cancel, Apply, etc.).
+- [x] Translation of ComboBox items (Light/Dark, etc.).
+- [x] Translation of placeholder texts ("Select folder", "No action", etc.).
+- [x] Translation of Active Filters and Active Actions titles.
 
-## Bekleyenler
-- [x] Mesaj Kutularının (QMessageBox) çevirisi (Uyarı, Onay vb.). ✓ (25 Aralık 2025)
-- [x] Dosya işlem sonuç mesajlarının çevirisi. ✓ (25 Aralık 2025)
+## Pending
+- [x] Message Box (QMessageBox) translation (Warning, Confirmation, etc.). ✓ (December 25, 2025)
+- [x] File operation result message translation. ✓ (December 25, 2025)
 
-### OWASP Güvenlik İyileştirmeleri (25 Aralık 2025)
-- [x] Generator Pattern ile RAM-efficient dosya okuma
-- [x] ReDoS Koruması (Threading + Timeout)
-- [x] Path Traversal Koruması (`is_safe_path()`)
-- [x] TOCTOU/EAFP Düzeltmesi (Race condition engelleme)
-- [x] Kriptografik Güvenlik (MD5 → SHA-256, random → secrets)
-- [x] Symlink Kontrolü ve Dosya Limiti (100.000)
-- [x] Windows Rezerve İsim Kontrolü (CON, PRN, NUL vb.)
+### OWASP Security Improvements (December 25, 2025)
+- [x] Generator Pattern for RAM-efficient file reading
+- [x] ReDoS Protection (Threading + Timeout)
+- [x] Path Traversal Protection (`is_safe_path()`)
+- [x] TOCTOU/EAFP Fix (Race condition prevention)
+- [x] Cryptographic Security (MD5 → SHA-256, random → secrets)
+- [x] Symlink Control and File Limit (100,000)
+- [x] Windows Reserved Name Check (CON, PRN, NUL, etc.)
 
-### Dağıtım Altyapısı (25 Aralık 2025)
-- [x] build.bat - Nuitka derleme scripti
-- [x] installer.iss - Inno Setup kurulum scripti
-- [x] app.ico - Profesyonel uygulama ikonu
+### Distribution Infrastructure (December 25, 2025)
+- [x] build.bat - PyInstaller compilation script
+- [x] installer.iss - Inno Setup installation script
+- [x] app.ico - Professional application icon
 
 ---
 
-## Dosya Yapısı
+## File Structure
 
 ```
 File-Architect-Pro/
-├── main.py                    # Ana uygulama (4300+ satır, tüm UI bileşenleri)
-├── proxymodel.py              # PreviewProxyModel (Filtreleme mantığı)
+├── main.py                    # Main application (4300+ lines, all UI components)
+├── proxymodel.py              # PreviewProxyModel (Filtering logic)
 ├── workers.py                 # FastScannerThread, ActionRunnerThread
 ├── requirements.txt           # PyQt6>=6.5.0
-├── make_white_icons.py        # İkon renk dönüştürücü
-├── temp_filter_settings.py    # Geçici test dosyası
+├── make_white_icons.py        # Icon color converter
+├── temp_filter_settings.py    # Temporary test file
 │
-├── icons/                     # SVG İkonlar (19 adet)
+├── icons/                     # SVG Icons (19 items)
 │   ├── arrows-rotate-solid.svg
 │   ├── branch-end.svg / branch-end-white.svg
 │   ├── branch-more.svg / branch-more-white.svg
@@ -131,100 +131,63 @@ File-Architect-Pro/
 │   ├── vline.svg / vline-white.svg
 │   └── xmark-solid.svg
 │
-├── controllers/               # MVC Kontrolcüler
+├── controllers/               # MVC Controllers
 │   ├── __init__.py
 │   ├── action_controller.py
 │   └── file_controller.py
 │
-├── styles/                    # Stil Modülleri
+├── styles/                    # Style Modules
 │   ├── __init__.py
 │   └── theme.py
 │
-├── views/                     # Görünüm Bileşenleri
+├── views/                     # View Components
 │   ├── __init__.py
 │   └── preview_panel.py
 │
-├── memory-bank/               # Proje Dokümantasyonu
+├── memory-bank/               # Project Documentation
 │   ├── activeContext.md
-│   ├── communication.md
-│   ├── icons_and_extensions.md
-│   ├── implementation_plan.md
-│   ├── productContext.md
-│   ├── progress.md            # Bu dosya
-│   ├── systemPatterns.md
-│   └── techContext.md
-│
-├── .agent/                    # Agent Konfigürasyonu
-│   └── memory-bank/
-│       └── project-notes.md
+│   ├── progress.md            # This file
+│   └── ...
 │
 └── __pycache__/               # Python Bytecode
-    ├── managers.cpython-314.pyc
-    ├── proxymodel.cpython-314.pyc
-    └── workers.cpython-314.pyc
 ```
 
 ---
 
-## Ana Sınıflar (main.py)
+## Main Classes (main.py)
 
-| Sınıf | Satır | Açıklama |
-|-------|-------|----------|
-| `IconProvider` | ~550 | Dosya türlerine göre renkli SVG ikonlar |
-| `TreeDelegate` | ~604 | Ağaç görünümü özel çizici |
-| `AppSettingsWidget` | ~680 | Tema ve dil ayarları |
-| `SourceProxyModel` | ~779 | Gizli dosya filtreleme |
-| `SourcePanel` | ~800 | Kaynak dizin ağacı |
-| `FilterChip` | ~1105 | Aktif filtre etiketi |
-| `FilterSettingsPanel` | ~1149 | Filtre form paneli |
-| `FiltersPanel` | ~1779 | Filtre listesi + ayarlar |
-| `ActionSettingsPanel` | ~1862 | Aksiyon form paneli |
-| `TaskItem` | ~2301 | Aktif görev öğesi |
-| `ActiveActionsPanel` | ~2366 | Görev kuyruğu + ilerleme |
-| `ActionsPanel` | ~2650 | Aksiyon listesi + ayarlar |
-| `PreviewPanel` | ~2700 | Dosya önizleme |
-| `MainWindow` | ~3650 | Ana pencere |
+| Class | Line | Description |
+|-------|------|-------------|
+| `IconProvider` | ~550 | Colored SVG icons by file type |
+| `TreeDelegate` | ~604 | Tree view custom painter |
+| `AppSettingsWidget` | ~680 | Theme and language settings |
+| `SourceProxyModel` | ~779 | Hidden file filtering |
+| `SourcePanel` | ~800 | Source directory tree |
+| `FilterChip` | ~1105 | Active filter tag |
+| `FilterSettingsPanel` | ~1149 | Filter form panel |
+| `FiltersPanel` | ~1779 | Filter list + settings |
+| `ActionSettingsPanel` | ~1862 | Action form panel |
+| `TaskItem` | ~2301 | Active task item |
+| `ActiveActionsPanel` | ~2366 | Task queue + progress |
+| `ActionsPanel` | ~2650 | Action list + settings |
+| `PreviewPanel` | ~2700 | File preview |
+| `MainWindow` | ~3650 | Main window |
 
 ---
 
-## Çeviri Sistemi
+## Translation System
 
-### Yapı
-- **Metod**: `MainWindow._update_ui_text()` (Satır ~3700)
-- **Tetikleyici**: `AppSettingsWidget.language_changed` sinyali
-- **Diller**: Türkçe (tr), İngilizce (en)
+### Structure
+- **Method**: `MainWindow._update_ui_text()` (Line ~3700)
+- **Trigger**: `AppSettingsWidget.language_changed` signal
+- **Languages**: Turkish (tr), English (en)
 
-### Dictionary Keyleri
-```python
-# Temel
-"source_tab_files", "source_tab_settings", "source_header", "browse",
-"filter_header", "filter_add", "filter_reset", "filter_cancel",
-"actions_header", "preview_header", "folder_structure", "files_count", "run_button"
-
-# Filtreler
-"filter_panel_header", "filter_Uzantı", "filter_Dosya Adı", "filter_Metin", 
-"filter_Metin Yok", "filter_Boyut", "filter_Regex", "filter_Boş Dosya",
-"filter_Oluşturma Tarihi", "filter_Değişiklik Tarihi", "filter_Şifreli", "filter_Gizli"
-
-# Aksiyonlar
-"action_seq_rename", "action_prefix_suffix", "action_find_replace", "action_change_ext",
-"action_copy", "action_tag", "action_flatten", "action_secure_del", "action_merge",
-"action_csv", "action_excel"
-
-# Ayarlar & Placeholders
-"app_settings", "theme_label", "lang_label", "apply_settings",
-"placeholder_select_filter", "label_active_filters", "placeholder_select_action",
-"placeholder_no_actions", "placeholder_select_folder", "no_folder_selected",
-"btn_run_actions", "action_settings_header", "active_actions_header", "theme_items"
-```
-
-### update_texts() Metotları
-Her panel kendi `update_texts(t)` metoduna sahip:
-- `AppSettingsWidget` - Başlık, etiketler, buton, ComboBox
+### update_texts() Methods
+Each panel has its own `update_texts(t)` method:
+- `AppSettingsWidget` - Title, labels, button, ComboBox
 - `SourcePanel` - Placeholder, path label
-- `FiltersPanel` - Başlık, filtre butonları
-- `FilterSettingsPanel` - Placeholder, aktif filtreler label
-- `ActionSettingsPanel` - Placeholder, başlık
-- `ActiveActionsPanel` - Başlık, aksiyon yok label, çalıştır butonu
-- `PreviewPanel` - Liste placeholder
-
+- `FiltersPanel` - Title, filter buttons
+- `FilterSettingsPanel` - Placeholder, active filters label
+- `ActionSettingsPanel` - Placeholder, title
+- `ActiveActionsPanel` - Title, no action label, run button
+- `PreviewPanel` - List placeholder

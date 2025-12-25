@@ -1,61 +1,61 @@
-# Sistem Desenleri
+# System Patterns
 
-## Mimari
-*   **Tekil Betik (Monolithic Script)**: Şu anda `main.py` tüm uygulama mantığını içerir (`MainWindow`, `SourcePanel`, `FiltersPanel`, `ActionsPanel`, `PreviewPanel` sınıfları buradadır).
-*   **Olay Güdümlü (Event Driven)**: Bileşenler arası iletişim için PyQt6 Signal/Slot mekanizmasına yoğun bağımlılık (örn. Kaynak panelindeki seçim değişikliği Önizleme panelini tetikler).
+## Architecture
+* **Monolithic Script**: Currently `main.py` contains all application logic (`MainWindow`, `SourcePanel`, `FiltersPanel`, `ActionsPanel`, `PreviewPanel` classes are here).
+* **Event Driven**: Heavy reliance on PyQt6 Signal/Slot mechanism for inter-component communication (e.g., selection change in Source panel triggers Preview panel).
 
-## Arayüz Desenleri
-*   **Özel Boyama (Custom Painting)**: Öğeler ve çizgiler genellikle Delegate'ler veya `paintEvent` geçersiz kılmalarıyla özel olarak çizilir (`GradientLine`, `TreeDelegate`).
-*   **Stil Sayfası (QSS)**: Global `STYLE_SHEET` sabiti temel görünümü tanımlar.
-*   **Düzenler (Layouts)**: İç içe `QVBoxLayout` ve `QHBoxLayout`, ana ızgara için `QGridLayout` ile birleştirilmiştir.
+## Interface Patterns
+* **Custom Painting**: Items and lines are typically custom drawn with Delegates or `paintEvent` overrides (`GradientLine`, `TreeDelegate`).
+* **Style Sheet (QSS)**: Global `STYLE_SHEET` constant defines the base appearance.
+* **Layouts**: Nested `QVBoxLayout` and `QHBoxLayout`, combined with `QGridLayout` for main grid.
 
-## Ana Sınıflar
-*   `MainWindow`: Yerleşimi düzenler ve panelleri oluşturur.
-*   `SourcePanel`: `QFileSystemModel` ile `QTreeView`. Dizin navigasyonunu yönetir.
-*   `FiltersPanel`: Filtreleme butonlarını barındırır.
-*   `FilterSettingsPanel`: Filtre ayarları için sağ taraftaki form yığını (StackedWidget). Sabit genişlik (280px).
-*   `FilterChip`: Aktif filtreler için etiket widget'ı. Kırmızı yuvarlak X butonu ile silme.
-*   `ActionsPanel`: Operasyon butonlarını barındırır.
-*   `ActionSettingsPanel`: Aksiyon ayarları için sağ panel (FilterSettingsPanel ile simetrik yapı). Sabit genişlik (300px).
-*   `PreviewPanel`: Dosya listesini (`QListView` veya `QTreeView`) gösteren ana panel. `PreviewProxyModel` kullanarak gelişmiş filtreleme yapar.
-*   `ModernSpinBox`: Özel tasarımlı sayı girişi widget'ı. QIntValidator ile sadece sayı girişi.
-*   `PreviewProxyModel`: `QSortFilterProxyModel` tabanlı akıllı filtreleme katmanı.
+## Main Classes
+* `MainWindow`: Organizes layout and creates panels.
+* `SourcePanel`: `QTreeView` with `QFileSystemModel`. Manages directory navigation.
+* `FiltersPanel`: Hosts filtering buttons.
+* `FilterSettingsPanel`: Form stack for filter settings on the right side (StackedWidget). Fixed width (280px).
+* `FilterChip`: Tag widget for active filters. Delete with red circle X button.
+* `ActionsPanel`: Hosts operation buttons.
+* `ActionSettingsPanel`: Right panel for action settings (symmetric structure with FilterSettingsPanel). Fixed width (300px).
+* `PreviewPanel`: Main panel showing file list (`QListView` or `QTreeView`). Does advanced filtering using `PreviewProxyModel`.
+* `ModernSpinBox`: Custom designed number input widget. Number-only input with QIntValidator.
+* `PreviewProxyModel`: Smart filtering layer based on `QSortFilterProxyModel`.
 
-## Form Widget Yönetimi
-*   `form_widgets` dictionary: Her form türü için widget referanslarını saklar.
-*   Widget türleri: `input` (QLineEdit), `case/exact/invert` (QCheckBox), `val` (ModernSpinBox), `op/unit` (QComboBox), `start/end` (QDateEdit).
-*   `_on_reset()`: Mevcut formu sıfırlar.
-*   `_get_filter_description()`: Gerçek form değerlerini okuyup açıklama oluşturur.
+## Form Widget Management
+* `form_widgets` dictionary: Stores widget references for each form type.
+* Widget types: `input` (QLineEdit), `case/exact/invert` (QCheckBox), `val` (ModernSpinBox), `op/unit` (QComboBox), `start/end` (QDateEdit).
+* `_on_reset()`: Resets the current form.
+* `_get_filter_description()`: Reads actual form values and creates description.
 
-## Tasarım Kuralları
-*   **Mavi Vurgu Yok**: Palet ve QSS ile kesinlikle engellenmiştir.
-*   **Ortalanmış Hiyerarşi Çizgileri**: Çizgiler dosya/klasör ikonunun merkeziyle hizalanmalıdır.
-*   **Kompakt Mod**: Küçük dolgularla (padding) yoğun yerleşim.
-*   **Dinamik Butonlar**: Ana butonlar (stretch 2), İptal butonu (stretch 1).
-*   **Tam Ekran Desteği**: Panel yapıları sabit genişlikle korunur, sağa stretch eklenir.
+## Design Rules
+* **No Blue Highlight**: Strictly prevented with Palette and QSS.
+* **Centered Hierarchy Lines**: Lines must align with the center of file/folder icon.
+* **Compact Mode**: Dense layout with small padding.
+* **Dynamic Buttons**: Main buttons (stretch 2), Cancel button (stretch 1).
+* **Full Screen Support**: Panel structures preserved with fixed width, stretch added to right.
 
-## Yeni Mimari Desenler
+## New Architectural Patterns
 
-### Akıllı Filtreleme Katmanı (Proxy Model Pattern)
-Geleneksel `QFileSystemModel` kısıtlamalarını aşmak için `PreviewProxyModel` kullanılır. Bu katman:
-- Kaynak modelden gelen verileri UI'a ulaşmadan önce filtreler.
-- Boyut, Tarih, Regex gibi gelişmiş mantıkları koordine eder.
-- `beginResetModel`/`endResetModel` ile atomik UI güncellemeleri sağlar.
+### Smart Filtering Layer (Proxy Model Pattern)
+`PreviewProxyModel` is used to overcome traditional `QFileSystemModel` limitations. This layer:
+- Filters data from source model before reaching UI.
+- Coordinates advanced logic like Size, Date, Regex.
+- Provides atomic UI updates with `beginResetModel`/`endResetModel`.
 
-### Zincirleme Genişletme Deseni (Chain-Expansion Pattern)
-`QFileSystemModel`'in asenkron yükleme doğasını yönetmek için kullanılır:
-1. `directoryLoaded(path)` sinyali dinlenir.
-2. Yüklenen dizin için `mapFromSource` ile proxy indeksi alınır ve `expand()` edilir.
-3. Whitelist aktifse, sadece listedeki klasörler için `fetchMore()` çağrılarak hiyerarşi hedefe doğru açılır.
+### Chain-Expansion Pattern
+Used to manage the asynchronous loading nature of `QFileSystemModel`:
+1. `directoryLoaded(path)` signal is listened to.
+2. Proxy index is obtained with `mapFromSource` for loaded directory and `expand()` is called.
+3. If whitelist is active, only folders in the list have `fetchMore()` called to open hierarchy towards target.
 
-### Arka Plan Tarama Deseni (Background Scanner Pattern)
-Arayüzü dondurmadan disk üzerinde derin tarama yapmak için kullanılır:
-- `QThread` (FastScannerThread) üzerinden yürütülür.
-- `os.walk` ile düşük seviyeli ve hızlı dosya sistemi erişimi sağlar.
-- Sonuçları "Whitelist" olarak arayüze (PreviewPanel) sinyal ile iletir.
+### Background Scanner Pattern
+Used for deep disk scanning without freezing the interface:
+- Executed via `QThread` (FastScannerThread).
+- Provides low-level and fast file system access with `os.walk`.
+- Sends results to interface (PreviewPanel) as "Whitelist" via signal.
 
-### Beyaz Liste (Whitelist) Filtreleme Deseni
-Proxy model seviyesinde ağaç budama için kullanılır:
-- Tarayıcıdan gelen geçerli klasör yolları bir `set` içinde tutulur.
-- `filterAcceptsRow` içinde sadece bu listedeki klasörlerin geçişine izin verilir.
-- Bu, TreeView'un gereksiz binlerce klasörü işlemesini ve çizmesini engeller.
+### Whitelist Filtering Pattern
+Used for tree pruning at proxy model level:
+- Valid folder paths from scanner are kept in a `set`.
+- In `filterAcceptsRow`, only folders in this list are allowed to pass.
+- This prevents TreeView from processing and drawing unnecessary thousands of folders.

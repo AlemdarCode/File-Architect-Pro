@@ -1,31 +1,31 @@
-# Ürün Bağlamı
+# Product Context
 
-## Proje Adı
+## Project Name
 File-Architect-Pro
 
-## Tanım
-Python ve PyQt6 ile oluşturulmuş gelişmiş bir dosya yönetimi ve mimari aracı. Kullanıcıların dizin yapılarını görselleştirmesine, dosyaları çeşitli kriterlere göre filtrelemesine ve toplu işlemler gerçekleştirmesine olanak tanır.
+## Description
+An advanced file management and architecture tool built with Python and PyQt6. Allows users to visualize directory structures, filter files by various criteria, and perform batch operations.
 
-## Temel Özellikler
-1.  **Kaynak Dizin Tarayıcısı**:
-    *   Dosya sisteminin ağaç görünümü.
-    *   Özel çizilmiş hiyerarşi çizgileri (ortalanmış).
-    *   Klasör genişletme mantığı (derinlemesine otomatik genişletme).
-2.  **Filtre Paneli**:
-    *   Açılıp kapanabilir filtreler (Uzantı, İsim, Regex, Boyut vb.).
-    *   Merkezi sütun yerleşimi.
-3.  **İşlem (Aksiyon) Paneli**:
-    *   Filtre paneli ile simetrik yapı.
-    *   Sol tarafta operasyon butonları, sağda dinamik ayar paneli (`ActionSettingsPanel`).
-    *   **Aktif Aksiyonlar Listesi**: Seçilen işlemler (Maks 3) burada listelenir, düzenlenebilir veya silinebilir.
-    *   **Worker Thread Mimarisi**: Dosya işlemleri ana arayüzü dondurmadan arka planda çalışır.
-4.  **Dosya Önizleme Paneli**:
-    *   Detay görünümü (İsim, Tip, Boyut, Değiştirilme Tarihi).
-    *   Desteklenen dosyalar için metin önizleme.
-    *   İşlem yapılandırma arayüzleri (desen girişi vb.).
+## Core Features
+1. **Source Directory Browser**:
+    * Tree view of the file system.
+    * Custom drawn hierarchy lines (centered).
+    * Folder expansion logic (deep automatic expansion).
+2. **Filter Panel**:
+    * Collapsible filters (Extension, Name, Regex, Size, etc.).
+    * Center column layout.
+3. **Action Panel**:
+    * Symmetric structure with filter panel.
+    * Operation buttons on the left, dynamic settings panel (`ActionSettingsPanel`) on the right.
+    * **Active Actions List**: Selected operations (Max 3) are listed here, can be edited or deleted.
+    * **Worker Thread Architecture**: File operations run in the background without freezing the main interface.
+4. **File Preview Panel**:
+    * Detail view (Name, Type, Size, Modified Date).
+    * Text preview for supported files.
+    * Operation configuration interfaces (pattern input, etc.).
 
-## Tasarım Felsefesi
-*   **Profesyonel Arayüz**: Özel stil, "Fusion" stili temeli, varsayılan sistem mavi vurgularının kaldırılması.
-*   **Estetik**: Minimalist, temiz çizgiler, özel renk paleti (#E7E6E2, #F0EFEB, #F9F8F2).
-*   **Duyarlı (Responsive)**: Paneller orantılı olarak yeniden boyutlanır, grid yapısı ekran boyutuna adapte olur.
-*   **Kullanıcı Dostu**: İşlemler sırasında ilerleme göstergeleri ve onay mesajları ile kullanıcı sürekli bilgilendirilir.
+## Design Philosophy
+* **Professional Interface**: Custom styling, "Fusion" style base, removal of default system blue highlights.
+* **Aesthetic**: Minimalist, clean lines, custom color palette (#E7E6E2, #F0EFEB, #F9F8F2).
+* **Responsive**: Panels resize proportionally, grid structure adapts to screen size.
+* **User Friendly**: Users are continuously informed with progress indicators and confirmation messages during operations.

@@ -5,120 +5,129 @@
 </p>
 
 <p align="center">
-  <strong>Profesyonel Dosya Yönetim ve Organizasyon Aracı</strong>
+  <strong>Professional File Management and Organization Tool</strong>
 </p>
 
 <p align="center">
-  <a href="#özellikler">Özellikler</a> •
-  <a href="#kurulum">Kurulum</a> •
-  <a href="#kullanım">Kullanım</a> •
-  <a href="#güvenlik">Güvenlik</a> •
-  <a href="#derleme">Derleme</a>
+  <a href="#features">Features</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#security">Security</a> •
+  <a href="#building">Building</a>
 </p>
 
 ---
 
-## Özellikler
+## Features
 
-### 📁 Dosya Filtreleme
-- **Uzantı Filtresi**: Belirli dosya türlerini seçin (.txt, .pdf, .jpg vb.)
-- **Metin Arama**: Dosya içeriğinde RAM-efficient arama
-- **Boyut Filtresi**: KB, MB, GB cinsinden boyut sınırlaması
-- **Tarih Filtresi**: Oluşturma/değiştirme tarihine göre filtreleme
-- **Regex Desteği**: Gelişmiş desen eşleştirme (ReDoS korumalı)
+### 📁 File Filtering
+- **Extension Filter**: Select specific file types (.txt, .pdf, .jpg, etc.)
+- **Text Search**: Memory-efficient content search within files
+- **Size Filter**: Filter by size in KB, MB, GB
+- **Date Filter**: Filter by creation/modification date
+- **Regex Support**: Advanced pattern matching (ReDoS protected)
 
-### ⚡ Aksiyon Sistemi
-- **Sıralı Yeniden Adlandırma**: Dosyaları otomatik numaralandırma
-- **Bul & Değiştir**: Dosya adlarında toplu değişiklik
-- **Kopyala**: Çakışma yönetimi ile güvenli kopyalama
-- **Güvenli Silme**: NIST 800-88 standardında veri imhası
-- **Metin Birleştir**: Birden fazla dosyayı tek dosyada birleştirme
-- **CSV/Excel Rapor**: Dosya listesi ve hash raporları
+### ⚡ Action System
+- **Sequential Rename**: Automatic file numbering
+- **Find & Replace**: Batch rename operations
+- **Copy**: Safe copying with conflict management
+- **Secure Delete**: NIST 800-88 compliant data destruction
+- **Text Merge**: Combine multiple files into one
+- **CSV/Excel Report**: File listing and hash reports
 
-### 🎨 Modern Arayüz
-- **Koyu/Açık Tema**: Sistem temasına otomatik uyum
-- **Türkçe/İngilizce**: Tam çoklu dil desteği
-- **Ağaç Görünümü**: Klasör yapısını koruyarak önizleme
-- **Gerçek Zamanlı İlerleme**: İşlem durumu takibi
+### 🎨 Modern Interface
+- **Dark/Light Theme**: Automatic system theme adaptation
+- **Turkish/English**: Full multilingual support
+- **Tree View**: Preview with folder structure preserved
+- **Real-time Progress**: Operation status tracking
 
 ---
 
-## Kurulum
+## Installation
 
-### Gereksinimler
+### Requirements
 - Python 3.10+
 - PyQt6
 
-### Hızlı Başlangıç
+### Quick Start
 
 ```bash
-# Depoyu klonlayın
-git clone https://github.com/AhmetAlemdar/File-Architect-Pro.git
+# Clone the repository
+git clone https://github.com/AlemdarCode/File-Architect-Pro.git
 cd File-Architect-Pro
 
-# Bağımlılıkları yükleyin
+# Install dependencies
 pip install -r requirements.txt
 
-# Uygulamayı başlatın
+# Run the application
 python main.py
 ```
 
 ---
 
-## Kullanım
+## Usage
 
-1. **Kaynak Klasör Seçimi**: Sol panelden klasör seçin veya "Gözat" butonunu kullanın
-2. **Filtre Ekleme**: Filtre butonlarından birini seçin ve değerleri girin
-3. **Aksiyon Ekleme**: Aksiyon listesinden işlem seçin ve ayarlayın
-4. **Çalıştırma**: "Tüm Aksiyonları Çalıştır" butonuna tıklayın
-
----
-
-## Güvenlik
-
-Bu uygulama OWASP güvenlik standartlarına uygun olarak geliştirilmiştir:
-
-| Güvenlik Özelliği | Açıklama |
-|-------------------|----------|
-| **ReDoS Koruması** | Regex timeout mekanizması ile CPU aşırı kullanımı engellenir |
-| **Path Traversal** | Dizin gezinme saldırıları engellenir |
-| **TOCTOU Koruması** | Race condition güvenlik açıkları kapatıldı |
-| **SHA-256 Hash** | MD5 yerine güvenli hash algoritması |
-| **Symlink Kontrolü** | Sembolik bağlantılar atlanır |
-| **Dosya Limiti** | DoS koruması için 100.000 dosya limiti |
+1. **Select Source Folder**: Choose a folder from the left panel or use "Browse"
+2. **Add Filters**: Select a filter button and enter values
+3. **Add Actions**: Choose an action from the list and configure it
+4. **Execute**: Click "Run All Actions" button
 
 ---
 
-## Derleme
+## Security
 
-### Standalone .exe Oluşturma
+This application is developed in compliance with OWASP security standards:
+
+| Security Feature | Description |
+|------------------|-------------|
+| **ReDoS Protection** | Regex timeout mechanism prevents CPU exhaustion |
+| **Path Traversal** | Directory traversal attacks are blocked |
+| **TOCTOU Protection** | Race condition vulnerabilities are fixed |
+| **SHA-256 Hash** | Secure hash algorithm instead of MD5 |
+| **Symlink Control** | Symbolic links are skipped |
+| **File Limit** | 100,000 file limit for DoS protection |
+
+---
+
+## Building
+
+### Create Standalone EXE
 
 ```batch
-# build.bat dosyasını çalıştırın
+# Run the build script
 build.bat
 ```
 
-> ⚠️ İlk derleme sırasında MinGW derleyicisi gerekebilir. Script size soracaktır.
+> ⚠️ MinGW compiler may be required on first build. The script will prompt you.
 
-### Kurulum Dosyası Oluşturma
+### Create Installer
 
-1. [Inno Setup](https://jrsoftware.org/isinfo.php) indirin ve kurun
-2. `installer.iss` dosyasını Inno Setup'ta açın
-3. "Compile" butonuna tıklayın
-4. Çıktı: `installer_output/FileArchitectPro_Setup_v1.0.exe`
-
----
-
-## Lisans
-
-Copyright © 2025 Ahmet Alemdar. Tüm Hakları Saklıdır.
+1. Download and install [Inno Setup](https://jrsoftware.org/isinfo.php)
+2. Open `installer.iss` in Inno Setup
+3. Click "Compile" button
+4. Output: `installer_output/FileArchitectPro_Setup_v1.0.exe`
 
 ---
 
-## Katkıda Bulunma
+## License
 
-1. Fork edin
-2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
-3. Commit edin (`git commit -m 'Add amazing feature'`)
-4. Push edin (`git push origin feature/amazing-feature`)
-5. Pull Request açın
+MIT License - Copyright © 2025 Ahmet Alemdar
+
+See [LICENSE](LICENSE) for details.
+
+---
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## Author
+
+**Ahmet Alemdar**
+- GitHub: [@AlemdarCode](https://github.com/AlemdarCode)
