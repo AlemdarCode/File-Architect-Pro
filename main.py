@@ -1613,7 +1613,7 @@ class FilterSettingsPanel(QWidget):
             QMessageBox.warning(self, tr("msg_title_warning"), tr("msg_max_filters", self.MAX_FILTERS))
             return
         
-        # Filtre verilerini al
+        # Get filter data
         filter_data = self._get_filter_data()
         if filter_data is None:
             return
@@ -1650,10 +1650,10 @@ class FilterSettingsPanel(QWidget):
             "col": (self._chip_col - 1) if self._chip_col > 0 else self._max_cols - 1
         }
         
-        # Sinyal emit et
+        # Emit signal
         self.filter_added.emit(self._current_filter_type, filter_id, filter_data)
         
-        # Formu temizle (metin kutularını boşalt)
+        # Clear form (metin kutularını boşalt)
         self._on_reset()
     
     def _on_remove_filter(self, filter_id):
@@ -2145,7 +2145,7 @@ class ActionSettingsPanel(QWidget):
         l4.addStretch()
         self._add_stack("change_ext", f4)
         
-        # 5. Kopyala
+        # 5. Copy
         f_copy = QWidget()
         l_copy = QVBoxLayout(f_copy)
         l_copy.setContentsMargins(0,0,0,0)
@@ -3424,7 +3424,7 @@ class PreviewPanel(QFrame):
             # Filtre yoksa boş liste (Kullanıcı isteği)
             self._filtered_files = []
         else:
-            # Filtreleri uygula (AND mantığı)
+            # Apply filters (AND mantığı)
             self._filtered_files = []
             for file_path in self._all_files:
                 if self._file_matches_filters(file_path):
@@ -3592,7 +3592,7 @@ class PreviewPanel(QFrame):
     
     def _update_file_list_ui(self):
         """Dosya listesi UI'ını güncelle"""
-        # TreeView modundaysak sadece sayıyı güncelle ve çık
+        # In TreeView modeysak sadece sayıyı güncelle ve çık
         if hasattr(self, '_tree_view_cb') and self._tree_view_cb.isChecked():
             # Dosya sayısını güncelle (Kullanıcının filtrenin çalıştığını anlaması için)
             if self._root_path:
@@ -3781,7 +3781,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("File-Architect-Pro")
-        self.resize(1300, 700)        # Ana pencere genişliği %30 artırıldı (1000 → 1300)
+        self.resize(1300, 700)        # Main window genişliği %30 artırıldı (1000 → 1300)
         self.setMinimumSize(1040, 500)  # Minimum genişlik de %30 artırıldı (800 → 1040)
         self._editing_task_index = None # Düzenlenmekte olan görev indeksi
         self._current_lang = "tr"  # Varsayılan dil
