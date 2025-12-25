@@ -1304,8 +1304,8 @@ class FilterSettingsPanel(QWidget):
         self._current_filter_type = None
         self._build()
     def _build(self):
-        self.setMinimumWidth(200)  # Minimum genişlik (dinamik küçülme için)
-        self.setMaximumWidth(350)  # Maximum genişlik
+        self.setMinimumWidth(200)  # Minimum width (for dynamic shrinking)
+        self.setMaximumWidth(350)  # Maximum width
         lay = QVBoxLayout(self)
         lay.setContentsMargins(10, 4, 8, 4)
         lay.setSpacing(4)
@@ -1336,8 +1336,8 @@ class FilterSettingsPanel(QWidget):
         self.btn_cancel.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.btn_cancel.clicked.connect(self._on_cancel)
         btn_lay.addWidget(self.btn_add, 2)  # Filtre Ekle
-        btn_lay.addWidget(self.btn_reset, 2)  # Sıfırla - aynı genişlikte
-        btn_lay.addWidget(self.btn_cancel, 1)  # İptal - daha küçük
+        btn_lay.addWidget(self.btn_reset, 2)  # Reset - same width
+        btn_lay.addWidget(self.btn_cancel, 1)  # Cancel - smaller
         lay.addLayout(btn_lay)
         sep = QFrame()
         sep.setFrameShape(QFrame.Shape.HLine)
@@ -1359,10 +1359,10 @@ class FilterSettingsPanel(QWidget):
         lay.addWidget(self.chips_container)
         
     def _init_forms(self):
-        # Form widget'larını sakla
+        # Store form widgets
         self.form_widgets = {}
         
-        # Uzantı formu
+        # Extension form
         f_ext = QWidget()
         l_ext = QVBoxLayout(f_ext)
         l_ext.setContentsMargins(0, 0, 0, 0)
