@@ -1,1 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><line x1="5" y1="0" x2="5" y2="10" stroke="#D7D6D2" stroke-width="1"/></svg>
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+  <rect x="11" y="0" width="1" height="24" fill="#000" />
+</svg>

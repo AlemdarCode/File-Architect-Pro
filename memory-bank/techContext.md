@@ -10,5 +10,7 @@
 *   **Hafıza Bankası**: Dokümantasyon `memory-bank/` klasöründe tutulmalıdır.
 
 ## Bağımlılıklar
-*   `PyQt6`
-*   Standart Python kütüphaneleri (`pathlib`, `sys`, `datetime`, `typing`).
+*   `PyQt6` (GUI temeli)
+*   `proxymodel.py` (Yerel Proxy Model bileşeni)
+*   `workers.py` (Arka plan tarayıcı ve iş parçacıkları)
+*   Standart Python kütüphaneleri (`pathlib`, `sys`, `datetime`, `re`, `uuid`, `os`).

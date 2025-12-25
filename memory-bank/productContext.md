@@ -17,7 +17,8 @@ Python ve PyQt6 ile oluşturulmuş gelişmiş bir dosya yönetimi ve mimari arac
 3.  **İşlem (Aksiyon) Paneli**:
     *   Filtre paneli ile simetrik yapı.
     *   Sol tarafta operasyon butonları, sağda dinamik ayar paneli (`ActionSettingsPanel`).
-    *   Aktif aksiyonlar listesi ("chipler").
+    *   **Aktif Aksiyonlar Listesi**: Seçilen işlemler (Maks 3) burada listelenir, düzenlenebilir veya silinebilir.
+    *   **Worker Thread Mimarisi**: Dosya işlemleri ana arayüzü dondurmadan arka planda çalışır.
 4.  **Dosya Önizleme Paneli**:
     *   Detay görünümü (İsim, Tip, Boyut, Değiştirilme Tarihi).
     *   Desteklenen dosyalar için metin önizleme.
@@ -26,4 +27,5 @@ Python ve PyQt6 ile oluşturulmuş gelişmiş bir dosya yönetimi ve mimari arac
 ## Tasarım Felsefesi
 *   **Profesyonel Arayüz**: Özel stil, "Fusion" stili temeli, varsayılan sistem mavi vurgularının kaldırılması.
 *   **Estetik**: Minimalist, temiz çizgiler, özel renk paleti (#E7E6E2, #F0EFEB, #F9F8F2).
-*   **Duyarlı (Responsive)**: Paneller orantılı olarak yeniden boyutlanır.
+*   **Duyarlı (Responsive)**: Paneller orantılı olarak yeniden boyutlanır, grid yapısı ekran boyutuna adapte olur.
+*   **Kullanıcı Dostu**: İşlemler sırasında ilerleme göstergeleri ve onay mesajları ile kullanıcı sürekli bilgilendirilir.

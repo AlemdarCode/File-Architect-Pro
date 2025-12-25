@@ -1,0 +1,17 @@
+class SourceProxyModel(QSortFilterProxyModel):
+    def __init__(self, hidden_files_set):
+        super().__init__()
+        self.hidden_files = hidden_files_set
+        
+    def filterAcceptsRow(self, source_row, source_parent):
+        # Dosya yolunu al
+        source_model = self.sourceModel()
+        index = source_model.index(source_row, 0, source_parent)
+        path = source_model.filePath(index)
+        
+        # Eğer bu dosya gizlenenler listesindeyse gösterme
+        import os
+        if os.path.normpath(path) in self.hidden_files:
+            return False
+            
+        return True

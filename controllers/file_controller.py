@@ -135,7 +135,7 @@ class FileController:
     
     def delete_item(self, path: str, secure: bool = False) -> bool:
         """
-        Delete a file or directory.
+        Delete a file or directory using EAFP pattern (no TOCTOU vulnerability).
         
         Args:
             path: Path to item to delete
@@ -144,22 +144,21 @@ class FileController:
         Returns:
             True if deletion was successful
         """
+        item_path = Path(path)
+        
         try:
-            item_path = Path(path)
-            
-            if not item_path.exists():
-                raise FileOperationError(f"Item does not exist: {path}")
-            
-            if item_path.is_file():
+            # EAFP: Direkt işlemi dene, hata olursa yakala (TOCTOU riski yok)
+            if item_path.is_dir():
+                shutil.rmtree(item_path)
+            else:
                 if secure:
                     self._secure_delete_file(item_path)
                 else:
                     item_path.unlink()
-            elif item_path.is_dir():
-                shutil.rmtree(item_path)
-            
             return True
             
+        except FileNotFoundError:
+            raise FileOperationError(f"Item does not exist: {path}")
         except PermissionError:
             raise FileOperationError(f"Permission denied: {path}")
         except OSError as e:
