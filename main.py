@@ -1,8 +1,8 @@
 """
 File-Architect-Pro - Responsive Layout
-Düzeltme: 
-1. Aksiyon Ayarları (Alt Panel) artık tam genişliğe yayılıyor ve dinamik büyüyor.
-2. Filtre etiketlerindeki (Chip) silme butonu kırmızı oval tasarım (X) ile değiştirildi.
+Fixes: 
+1. Action Settings (Bottom Panel) now expands to full width and grows dynamically.
+2. Delete button on filter tags (Chip) replaced with red oval design (X).
 """
 
 import sys
@@ -40,12 +40,12 @@ _current_language = "tr"
 _translations_cache = {}
 
 def _init_global_translations():
-    """Global çeviri sözlüğünü başlat"""
+    """Initialize global translation dictionary"""
     global _translations_cache, _current_language
     
     if _current_language == "tr":
         _translations_cache = {
-            # QMessageBox Başlıkları
+            # QMessageBox Titles
             "msg_title_info": "Bilgi",
             "msg_title_warning": "Uyarı",
             "msg_title_error": "Hata",
@@ -58,7 +58,7 @@ def _init_global_translations():
             "msg_title_invalid_extension": "Hatalı Uzantı",
             "msg_title_completed_with_errors": "İşlem Tamamlandı (Hatalı)",
             
-            # QMessageBox Mesajları
+            # QMessageBox Messages
             "msg_settings_applied": "Ayarlar başarıyla uygulandı!",
             "msg_select_filter_first": "Lütfen önce soldan bir filtre tipi seçiniz!",
             "msg_max_filters": "En fazla {0} filtre ekleyebilirsiniz!",
@@ -85,7 +85,7 @@ def _init_global_translations():
             "msg_hide_item_confirm": "Bu öğeyi listeden gizlemek istiyor musunuz?\n(Dosya diskten silinmeyecek, sadece bu görünümden kalkacak)\n\n{0}",
             "msg_processing": "İşleniyor...",
             
-            # Validasyon Mesajları
+            # Validation Messages
             "msg_invalid_empty_extension": "'{0}' geçersiz (boş uzantı)",
             "msg_invalid_double_dot": "'{0}' geçersiz (çift nokta)",
             "msg_invalid_char": "'{0}' geçersiz karakter içeriyor: '{1}'"
@@ -139,20 +139,20 @@ def _init_global_translations():
         }
 
 def set_language(lang_code):
-    """Dil ayarını güncelle"""
+    """Update language setting"""
     global _current_language
     _current_language = lang_code
     _init_global_translations()
 
 def tr(key, *args):
-    """Global çeviri fonksiyonu"""
+    """Global translation function"""
     text = _translations_cache.get(key, key)
     if args:
         for i, arg in enumerate(args):
             text = text.replace("{" + str(i) + "}", str(arg))
     return text
 
-# Başlangıç çevirilerini yükle
+# Initialize translations at startup
 _init_global_translations()
 
 
@@ -547,14 +547,14 @@ class GradientLine(QWidget):
         h = self.height()
         w = self.width()
         x = w // 2
-        # Daha kısa çizgi (Margin ekle)
-        margin = h * 0.15 # %15 üstten/alttan boşluk
+        # Shorter line (Add margin)
+        margin = h * 0.15 # 15% top/bottom margin
         
         gradient = QLinearGradient(0, margin, 0, h - margin)
         color_transparent = QColor(self._color)
         color_transparent.setAlpha(0)
         gradient.setColorAt(0.0, color_transparent)
-        gradient.setColorAt(0.2, self._color) # Daha yumuşak geçiş
+        gradient.setColorAt(0.2, self._color) # Smoother transition
         gradient.setColorAt(0.8, self._color)
         gradient.setColorAt(1.0, color_transparent)
         
@@ -585,7 +585,7 @@ class ModernSpinBox(QFrame):
         self.input.setText("0")
         self.input.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
         self.input.setObjectName("SpinInput")
-        # Sadece sayı girişi için validator
+        # Validator for number-only input
         self.input.setValidator(QIntValidator(self._min, self._max))
         self.input.editingFinished.connect(self._on_editing_finished)
         layout.addWidget(self.input, 1)
@@ -661,15 +661,15 @@ class IconProvider(QAbstractFileIconProvider):
         self._image = self._colorize("icons/image-solid.svg")
         self._music = self._colorize("icons/music-solid.svg")
         
-        # Extensions Set (Hızlı Lookup)
+        # Extensions Set (Fast Lookup)
         self._img_exts = {'png', 'jpg', 'jpeg', 'gif', 'bmp', 'svg', 'webp'}
         self._av_exts = {'mp3', 'wav', 'flac', 'm4a', 'ogg', 'mp4', 'avi', 'mkv', 'mov'}
         
     @staticmethod
     def make_icon(path, color="#444444"):
-        """Verilen path ve renkte QIcon oluşturur (Güvenli Mod)"""
+        """Creates QIcon with given path and color (Safe Mode)"""
         try:
-            # Geçici çözüm: Boyama yapmadan direkt ikonu döndür (Çökme testi)
+            # Temporary solution: Return icon directly without coloring (Crash test)
             if not Path(path).exists(): return QIcon()
             return QIcon(path)
         except Exception as e:
@@ -703,9 +703,9 @@ class IconProvider(QAbstractFileIconProvider):
             if info.isDir():
                 return self._folder
                 
-            # Hızlı Cache Lookup
+            # Fast Cache Lookup
             ext = info.suffix().lower()
-            if not ext: return self._file # Uzantısız dosyalar
+            if not ext: return self._file # Files without extension
             
             if ext in self._cache:
                 return self._cache[ext]
@@ -722,7 +722,7 @@ class IconProvider(QAbstractFileIconProvider):
         return self._file
 
     def get_icon(self, path):
-        """Harici kullanım için ikon boyama ve döndürme"""
+        """Paint and return icon for external use"""
         return self._colorize(path)
 
 class TreeDelegate(QStyledItemDelegate):
@@ -759,7 +759,7 @@ class TreeDelegate(QStyledItemDelegate):
     def paint(self, painter, option, index):
         painter.save()
         
-        # İçerik alanı (sağdaki silme butonu için yer aç)
+        # Content area (make room for delete button on the right)
         content_rect = QRect(option.rect)
         content_rect.setRight(content_rect.right() - 20)
         
@@ -767,9 +767,9 @@ class TreeDelegate(QStyledItemDelegate):
         opt.rect = content_rect
         super().paint(painter, opt, index)
         
-        # Silme butonu çizimi
+        # Delete button drawing
         xr = self._x_icon_rect(option.rect)
-        # Mouse üzerindeyse tam opak, değilse daha belirgin (%70)
+        # Full opacity if mouse over, otherwise more visible (70%)
         opacity = 1.0 if (option.state & QStyle.StateFlag.State_MouseOver) else 0.7
         painter.setOpacity(opacity)
         self._xicon.paint(painter, xr)
@@ -777,7 +777,7 @@ class TreeDelegate(QStyledItemDelegate):
     
     def _x_rect(self, rect: QRect) -> QRect:
         sz = 20
-        # Dikey ortalama için ROW_HEIGHT/2 yerine rect merkezi kullan
+        # Use rect center instead of ROW_HEIGHT/2 for vertical centering
         return QRect(rect.right() - sz - 2, rect.center().y() - sz // 2, sz, sz)
     
     def _x_icon_rect(self, rect: QRect) -> QRect:
@@ -815,12 +815,12 @@ class AppSettingsWidget(QWidget):
         lay.setSpacing(20)
         lay.setAlignment(Qt.AlignmentFlag.AlignTop)
         
-        # Başlık
+        # Title
         self.header_lbl = QLabel("Uygulama Ayarları")
         self.header_lbl.setStyleSheet("font-size: 16px; font-weight: bold; color: #333;")
         lay.addWidget(self.header_lbl)
         
-        # Tema Seçimi
+        # Theme Selection
         grp_theme = QWidget()
         l_theme = QVBoxLayout(grp_theme)
         l_theme.setContentsMargins(0, 0, 0, 0)
@@ -834,7 +834,7 @@ class AppSettingsWidget(QWidget):
         l_theme.addWidget(self.combo_theme)
         lay.addWidget(grp_theme)
         
-        # Dil Seçimi
+        # Language Selection
         grp_lang = QWidget()
         l_lang = QVBoxLayout(grp_lang)
         l_lang.setContentsMargins(0, 0, 0, 0)
@@ -869,7 +869,7 @@ class AppSettingsWidget(QWidget):
         self.btn_apply.clicked.connect(self._on_apply)
         lay.addWidget(self.btn_apply)
         
-        # Hakkında
+        # About
         lbl_about = QLabel("File-Architect-Pro\nv1.0.0")
         lbl_about.setStyleSheet("color: #666; font-size: 11px;")
         lbl_about.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -878,7 +878,7 @@ class AppSettingsWidget(QWidget):
         lay.addStretch()
 
     def _on_apply(self):
-        # Temayı uygula
+        # Apply theme
         theme_text = self.combo_theme.currentText()
         if "Açık" in theme_text:
             self.theme_changed.emit("light")
@@ -887,7 +887,7 @@ class AppSettingsWidget(QWidget):
         elif "Sistem" in theme_text:
             self.theme_changed.emit("system")
             
-        # Dil ayarı
+        # Language setting
         lang_text = self.combo_lang.currentText()
         if "English" in lang_text:
             self.language_changed.emit("en")
@@ -950,7 +950,7 @@ class SourcePanel(QFrame):
         self._build()
     
     def _build(self):
-        # Ana Layout (Sadece TabWidget Barındırır)
+        # Main Layout (Only contains TabWidget)
         main_lay = QVBoxLayout(self)
         main_lay.setContentsMargins(0, 0, 0, 0)
         main_lay.setSpacing(0)
@@ -971,17 +971,17 @@ class SourcePanel(QFrame):
             }
             QTabBar::tab:selected {
                 background: #F9F8F2;
-                border-bottom: 1px solid #F9F8F2; /* Kenarlığı gizle */
+                border-bottom: 1px solid #F9F8F2; /* Hide border */
                 font-weight: bold;
                 color: #333;
-                margin-bottom: -1px; /* Pane üzerine bin */
+                margin-bottom: -1px; /* Overlap pane */
             }
             QTabBar::tab:hover:!selected {
                 background: #F0EFEB;
             }
         """)
         
-        # --- TAB 1: FILES (Mevcut İçerik) ---
+        # --- TAB 1: FILES (Current Content) ---
         self.files_tab = QWidget()
         lay = QVBoxLayout(self.files_tab)
         lay.setContentsMargins(8, 8, 8, 8)
@@ -994,18 +994,18 @@ class SourcePanel(QFrame):
         hdr.addWidget(lbl)
         hdr.addStretch()
         
-        # Yenileme butonu
+        # Refresh button
         btn_refresh = QPushButton()
         btn_refresh.setObjectName("BrowseBtn")
         btn_refresh.setIcon(QIcon("icons/arrows-rotate-solid.svg"))
         btn_refresh.setIconSize(QSize(14, 14))
         btn_refresh.setFixedWidth(32)
-        btn_refresh.setToolTip("Yenile")
+        btn_refresh.setToolTip("Refresh")
         btn_refresh.clicked.connect(self._refresh)
         self.btn_refresh = btn_refresh # Make it accessible for theme changes
         hdr.addWidget(btn_refresh)
         
-        # Browse butonu
+        # Browse button
         self.btn_browse = QPushButton("Browse")
         self.btn_browse.setObjectName("BrowseBtn")
         self.btn_browse.setIcon(QIcon("icons/folder-open-solid.svg"))
@@ -1014,7 +1014,7 @@ class SourcePanel(QFrame):
         hdr.addWidget(self.btn_browse)
         lay.addLayout(hdr)
         
-        # Placeholder - klasör seçilmeden önce gösterilir
+        # Placeholder - shown before folder is selected
         self._placeholder = QLabel("Lütfen bir klasör seçin")
         self._placeholder.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self._placeholder.setStyleSheet("color: #888; font-size: 11px;")
@@ -1025,7 +1025,7 @@ class SourcePanel(QFrame):
         self._tree.setIndentation(24)
         self._tree.setAnimated(False)
         self._tree.setMouseTracking(True)
-        self._tree.setRootIsDecorated(True)  # Kök düğümleri de bağla (Tree Lines)
+        self._tree.setRootIsDecorated(True)  # Also connect root nodes (Tree Lines)
         self._tree.setUniformRowHeights(True)
         self._tree.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self._tree.hide()
@@ -1036,7 +1036,7 @@ class SourcePanel(QFrame):
         self._model.setIconProvider(self._icons)
         self._model.setFilter(QDir.Filter.AllDirs | QDir.Filter.Files | QDir.Filter.NoDotAndDotDot)
         
-        # Proxy Model Kurulumu (Gizleme Özelliği İçin)
+        # Proxy Model Setup (For Hide Feature)
         self._proxy_model = SourceProxyModel(self._hidden_files)
         self._proxy_model.setSourceModel(self._model)
         self._tree.setModel(self._proxy_model)
@@ -1069,27 +1069,27 @@ class SourcePanel(QFrame):
         if hasattr(self, '_placeholder') and "placeholder_select_folder" in t:
             self._placeholder.setText(t["placeholder_select_folder"])
         if hasattr(self, '_path_lbl') and "no_folder_selected" in t:
-            # Sadece varsayılan metinse güncelle
+            # Only update if default text
             if "No folder" in self._path_lbl.text() or "Klasör" in self._path_lbl.text():
                 self._path_lbl.setText(t["no_folder_selected"])
     
     def _refresh(self):
-        """Klasörü yenile (Güvenli)"""
+        """Refresh folder (Safe)"""
         if self._root and self._root.exists():
-            # Debounce: Çoklu tıklamayı önle
+            # Debounce: Prevent multiple clicks
             if hasattr(self, 'btn_refresh'):
                 self.btn_refresh.setEnabled(False)
             
-            # Watcher açık olduğu için sadece path'i tekrar set edelim
-            # Bu, index'i zorla günceller
+            # Since watcher is on, just set path again
+            # This forces index update
             current_path = str(self._root)
             QTimer.singleShot(100, lambda: self._do_refresh(current_path))
     
     def _do_refresh(self, path):
-        """Yenileme işlemini tamamla"""
+        """Complete refresh operation"""
         try:
             idx = self._model.setRootPath(path)
-            # Proxy Index'e çevir
+            # Convert to Proxy Index
             if hasattr(self, '_proxy_model'):
                 idx = self._proxy_model.mapFromSource(idx)
             self._tree.setRootIndex(idx)
@@ -1104,17 +1104,17 @@ class SourcePanel(QFrame):
         if p: self.set_root(p)
 
     def set_icon_color(self, color):
-        """İkon rengini güncelle ve modeli yenile"""
-        # Yeni provider oluşturarak cache sorununu aş
+        """Update icon color and refresh model"""
+        # Create new provider to bypass cache issues
         new_provider = IconProvider()
         new_provider.set_color(color)
         self._model.setIconProvider(new_provider)
-        self._icons = new_provider # Referansı güncelle
+        self._icons = new_provider # Update reference
         
-        # Delegate rengini de güncelle
+        # Also update delegate color
         self._delegate.set_color(color)
         
-        # Görünümü zorla yenile
+        # Force refresh view
         self._tree.viewport().update()
 
 
@@ -1126,7 +1126,7 @@ class SourcePanel(QFrame):
             self._root = Path(path)
             idx = self._model.setRootPath(path)
             
-            # Proxy Index'e çevir
+            # Convert to Proxy Index
             if hasattr(self, '_proxy_model'):
                 proxy_idx = self._proxy_model.mapFromSource(idx)
                 self._tree.setRootIndex(proxy_idx)
@@ -1135,18 +1135,18 @@ class SourcePanel(QFrame):
                  
             self._path_lbl.setText(path)
             
-            # Placeholder'ı gizle, TreeView'ı göster
+            # Hide placeholder, show TreeView
             self._placeholder.hide()
             self._tree.show()
             
             print(f"DEBUG: Root set to {path}") # Debugging
             
-            # Klasör değişince gizlenenler listesini temizle
+            # Clear hidden list when folder changes
             self._hidden_files.clear()
             self._proxy_model.invalidateFilter()
             
             self.dir_selected.emit(path)
-            # Not: expand işlemi source index ile çalışır (model üzerinde), o yüzden idx kullan
+            # Note: expand works with source index (on model), so use idx
             QTimer.singleShot(100, lambda: self._expand(idx, 10))
         except Exception as e:
             self._path_lbl.setText(str(e))
@@ -1154,10 +1154,10 @@ class SourcePanel(QFrame):
     def _expand(self, parent, depth):
         if depth <= 0 or not parent.isValid(): return
         
-        # Veriyi yükle (Source Index)
+        # Load data (Source Index)
         if self._model.canFetchMore(parent): self._model.fetchMore(parent)
         
-        # Görünümü genişlet (Proxy Index Gerekir)
+        # Expand view (Proxy Index Required)
         proxy_idx = parent
         if hasattr(self, '_proxy_model'):
             proxy_idx = self._proxy_model.mapFromSource(parent)
@@ -1165,7 +1165,7 @@ class SourcePanel(QFrame):
         if proxy_idx.isValid():
             self._tree.expand(proxy_idx)
         
-        # Alt klasörleri gez (Source Index)
+        # Traverse subdirectories (Source Index)
         for r in range(self._model.rowCount(parent)):
             ch = self._model.index(r, 0, parent)
             if ch.isValid() and self._model.isDir(ch):
@@ -1187,7 +1187,7 @@ class SourcePanel(QFrame):
             if ch.isValid() and self._model.isDir(ch):
                 if self._model.canFetchMore(ch): self._model.fetchMore(ch)
                 
-                # Görünümü genişlet (Proxy Index)
+                # Expand view (Proxy Index)
                 proxy_ch = ch
                 if hasattr(self, '_proxy_model'):
                     proxy_ch = self._proxy_model.mapFromSource(ch)
@@ -1199,7 +1199,7 @@ class SourcePanel(QFrame):
         indexes = selected.indexes()
         if indexes:
             idx = indexes[0]
-            # Proxy Index ise Source Index'e çevir
+            # Convert Proxy Index to Source Index
             if hasattr(self, '_proxy_model'):
                  idx = self._proxy_model.mapToSource(idx)
                  
@@ -1207,27 +1207,27 @@ class SourcePanel(QFrame):
             if path: self.selection_changed.emit(path)
     
     def _on_del(self, idx):
-        # idx Proxy Index olabilir, source index'e çevir
+        # idx may be Proxy Index, convert to source index
         real_idx = idx
         if hasattr(self, '_proxy_model'):
              real_idx = self._proxy_model.mapToSource(idx)
              
         p = self._model.filePath(real_idx)
         if p:
-            # KESİN GÜVENLİK KONTROLÜ: Kök Sürücüleri Engelle
-            # Kullanıcı "c diskinin tamamı silinmesin" dediği için bu kontrol şart.
+            # STRICT SECURITY CHECK: Block Root Drives
+            # This check is mandatory since user said "don't delete entire C drive".
             from pathlib import Path
             try:
                 path_obj = Path(p)
-                # Kök dizin kontrolü (C:\, D:\ vb.)
-                # anchor (örn: 'C:\') ile path aynıysa bu bir kök dizindir.
+                # Root directory check (C:\, D:\ etc.)
+                # If anchor (e.g., 'C:\') equals path, this is a root directory.
                 if path_obj.anchor == str(path_obj) or len(path_obj.parts) <= 1:
                      QMessageBox.critical(self, tr("msg_title_operation_forbidden"), 
                         tr("msg_root_drive_forbidden"))
                      return
             except: pass
 
-            # Onay İste
+            # Ask for confirmation
             reply = QMessageBox.question(
                 self, tr("msg_title_hide"), 
                 tr("msg_hide_item_confirm", p),
@@ -1261,7 +1261,7 @@ class FilterChip(QWidget):
         lbl.setStyleSheet("font-size: 10px; color: #444; background: transparent; border: none;")
         lay.addWidget(lbl)
         
-        # Kırmızı Oval X Butonu - X işareti içeride
+        # Red Oval X Button - X mark inside
         btn_x = QPushButton("✕")
         btn_x.setFixedSize(20, 20)
         btn_x.setCursor(Qt.CursorShape.PointingHandCursor)
